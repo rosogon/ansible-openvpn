@@ -1,0 +1,12 @@
+---
+- name: install openvpn
+  hosts: all
+  remote_user: ubuntu
+  become: yes
+  vars:
+    openvpn_ca_crt: files/ca.crt
+    openvpn_server_key: files/server.key
+    openvpn_server_crt: files/server.crt
+
+  roles:
+  - openvpn

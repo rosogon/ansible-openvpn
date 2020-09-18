@@ -1,0 +1,4 @@
+---
+# handlers file for openvpn
+- name: run sysctl
+  command: sysctl -p
