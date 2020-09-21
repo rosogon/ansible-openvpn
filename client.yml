@@ -1,0 +1,15 @@
+---
+- name: noop gathering facts
+  hosts: servers
+  tasks: []
+  
+- name: install openvpn client
+  hosts: clients
+  become: yes
+  vars:
+    openvpn_mode: client
+    openvpn_ca_crt: files/ca.crt
+    openvpn_client_key: files/client.key
+    openvpn_client_crt: files/client.crt
+  roles:
+  - openvpn

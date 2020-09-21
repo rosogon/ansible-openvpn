@@ -1,2 +1,16 @@
 ---
 # defaults file for openvpn
+
+openvpn_mode: server
+
+openvpn_server_config_tpl: templates/server.conf.j2
+openvpn_client_config_tpl: templates/client.conf.j2
+openvpn_server_ip: "{{ hostvars[groups['servers'][0]].inventory_hostname }}"
+openvpn_port: "1194"
+openvpn_network: "10.8.0.0"
+
+openvpn_ca_crt: files/ca.crt
+openvpn_server_key: files/server.key
+openvpn_server_crt: files/server.crt
+openvpn_client_key: files/client.key
+openvpn_client_crt: files/client.crt

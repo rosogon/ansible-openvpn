@@ -1,10 +1,3 @@
 ---
 # vars file for openvpn
 
-openvpn_server_config_tpl: templates/server.conf.j2
-openvpn_port: "1194"
-openvpn_network: "10.8.0.0"
-
-openvpn_ca_crt: files/ca.crt
-openvpn_server_key: files/server.key
-openvpn_server_crt: files/server.crt

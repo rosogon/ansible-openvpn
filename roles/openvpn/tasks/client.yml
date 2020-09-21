@@ -1,0 +1,28 @@
+---
+# tasks file for openvpn
+- name : install openvpn
+  package:
+    name: "openvpn"
+    state: present
+
+- name : copy client configuration file
+  template:
+    src: "{{ openvpn_client_config_tpl }}"
+    dest: /etc/openvpn/client/client.conf
+
+- block:
+    - name: copy ca.crt
+      copy:
+        src: "{{ openvpn_ca_crt }}"
+        dest: /etc/openvpn/ca.crt
+        mode: "0400"
+    - name: copy client.crt
+      copy:
+        src: "{{ openvpn_client_crt }}"
+        dest: /etc/openvpn/client.crt
+        mode: "0400"
+    - name: copy client.key
+      copy:
+        src: "{{ openvpn_client_key }}"
+        dest: /etc/openvpn/client.key
+        mode: "0400"

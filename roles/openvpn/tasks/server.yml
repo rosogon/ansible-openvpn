@@ -1,0 +1,41 @@
+---
+# tasks file for openvpn
+- name : install openvpn
+  package:
+    name: "openvpn"
+    state: present
+
+- name : copy server configuration file
+  template:
+    src: "{{ openvpn_server_config_tpl }}"
+    dest: /etc/openvpn/server.conf
+
+- block:
+    - name: copy ca.crt
+      copy:
+        src: "{{ openvpn_ca_crt }}"
+        dest: /etc/openvpn/ca.crt
+        mode: "0400"
+    - name: copy server.crt
+      copy:
+        src: "{{ openvpn_server_crt }}"
+        dest: /etc/openvpn/server.crt
+        mode: "0400"
+    - name: copy server.key
+      copy:
+        src: "{{ openvpn_server_key }}"
+        dest: /etc/openvpn/server.key
+        mode: "0400"
+
+- name: generate dh key
+  command: 
+    cmd: openssl dhparam -out /etc/openvpn/dh2048.pem 2048
+    creates: "/etc/openvpn/dh2048.pem"
+
+- block:
+  - name: enable ip forwarding
+    lineinfile:
+      path: /etc/sysctl.conf
+      regexp: 'net.ipv4.ip_forward='
+      line: net.ipv4.ip_forward=1
+    notify: run sysctl 
