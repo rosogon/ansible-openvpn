@@ -2,3 +2,10 @@
 # handlers file for openvpn
 - name: run sysctl
   command: sysctl -p
+
+- name: restart openvpn
+  service:
+    name: "openvpn"
+    state: restarted
+  tags:
+    - openvpn

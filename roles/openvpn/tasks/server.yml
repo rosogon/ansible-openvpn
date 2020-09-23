@@ -9,6 +9,7 @@
   template:
     src: "{{ openvpn_server_config_tpl }}"
     dest: /etc/openvpn/server.conf
+  notify: restart openvpn
 
 - block:
     - name: copy ca.crt
@@ -16,21 +17,25 @@
         src: "{{ openvpn_ca_crt }}"
         dest: /etc/openvpn/ca.crt
         mode: "0400"
+      notify: restart openvpn
     - name: copy server.crt
       copy:
         src: "{{ openvpn_server_crt }}"
         dest: /etc/openvpn/server.crt
         mode: "0400"
+      notify: restart openvpn
     - name: copy server.key
       copy:
         src: "{{ openvpn_server_key }}"
         dest: /etc/openvpn/server.key
         mode: "0400"
+      notify: restart openvpn
 
 - name: generate dh key
   command: 
     cmd: openssl dhparam -out /etc/openvpn/dh2048.pem 2048
     creates: "/etc/openvpn/dh2048.pem"
+  notify: restart openvpn
 
 - block:
   - name: enable ip forwarding
