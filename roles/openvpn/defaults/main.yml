@@ -14,3 +14,10 @@ openvpn_server_key: files/server.key
 openvpn_server_crt: files/server.crt
 openvpn_client_key: files/client.key
 openvpn_client_crt: files/client.crt
+
+# openvpn_routes is an array of routes to push to the client. E.g.:
+# 
+# openvpn_routes:
+# -network: 192.168.2.0
+#  mask: 255.255.255.0
+openvpn_routes: {}

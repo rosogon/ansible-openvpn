@@ -140,6 +140,9 @@ ifconfig-pool-persist /var/log/openvpn/ipp.txt
 # back to the OpenVPN server.
 ;push "route 192.168.10.0 255.255.255.0"
 ;push "route 192.168.20.0 255.255.255.0"
+{% for route in openvpn_routes %}
+push "route {{route.network}} {{route.mask}}"
+{% endfor %}
 
 # To assign specific IP addresses to specific
 # clients or if a connecting client has a private

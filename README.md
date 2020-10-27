@@ -18,6 +18,9 @@ List of defaults:
     openvpn_client_key: files/client.key
     openvpn_client_crt: files/client.crt
 
+    openvpn_routes: {}
+
+
 The behaviour of the openvpn role depends on the variable `openvpn_mode` ( = `server | client`).
 This variable is set in the client.yml and server.yml playbooks.
 
@@ -49,9 +52,10 @@ Copy CA certificate, OpenVPN server key and certificate into `/files/` as:
 
 And then run the playbook:
 
-    $ ansible-playbook -i hosts server.yml
+    $ ansible-playbook -i hosts server.yml -e vars.yml
 
 **NOTE**: Adding NAT is a TODO. 
+**NOTE2**: `vars.yml` contains the extra configuration to setup/connect_to the SODALITE VPN server.
 
 ### Client
 
@@ -63,9 +67,7 @@ Copy CA certificate, OpenVPN client key and certificate into `/files/` as:
 
 And then run the playbook:
 
-    $ ansible-playbook -i hosts client.yml
-
-**NOTE**: Pushing routes to the client is a TODO
+    $ ansible-playbook -i hosts client.yml -e vars.yml
 
 ## Creation of CA and certificates
 
